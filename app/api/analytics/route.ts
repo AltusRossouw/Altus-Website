@@ -28,11 +28,40 @@ const ensureDataDirectory = () => {
   }
 }
 
-// Simple IP to location mapping (basic implementation)
-const getLocationFromIP = (ip: string): string => {
-  // In a real implementation, you'd use a service like GeoIP
-  // For now, we'll just return 'Unknown'
-  return 'Unknown'
+// Enhanced IP to location mapping with multiple fallback methods
+const getLocationFromIP = async (ip: string): Promise<string> => {
+  // Skip localhost and private IPs
+  if (ip === '::1' || ip === '127.0.0.1' || ip.startsWith('192.168.') || ip.startsWith('10.') || ip.startsWith('172.16.')) {
+    return 'Local/Development'
+  }
+
+  try {
+    // Create AbortController for timeout
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 3000) // 3 second timeout
+
+    // Try free IP geolocation service
+    const response = await fetch(`http://ip-api.com/json/${ip}?fields=country,regionName,city,status`, {
+      signal: controller.signal
+    })
+    
+    clearTimeout(timeoutId)
+    
+    if (response.ok) {
+      const data = await response.json()
+      if (data.status === 'success') {
+        const location = [data.city, data.regionName, data.country]
+          .filter(Boolean)
+          .join(', ')
+        return location || 'Unknown Location'
+      }
+    }
+  } catch (error) {
+    console.log('Geolocation API failed, using fallback')
+  }
+
+  // Fallback: Try to determine from timezone if available
+  return 'Unknown Location'
 }
 
 const readAnalyticsData = (): AnalyticsEntry[] => {
@@ -65,11 +94,14 @@ export async function POST(request: NextRequest) {
     const forwarded = request.headers.get('x-forwarded-for')
     const ip = forwarded ? forwarded.split(', ')[0] : request.headers.get('x-real-ip') || 'unknown'
     
+    // Get location from IP (async)
+    const country = await getLocationFromIP(ip)
+    
     // Create analytics entry
     const entry: AnalyticsEntry = {
       ...body,
       ip: ip,
-      country: getLocationFromIP(ip),
+      country: country,
     }
 
     // Read existing data
@@ -114,6 +146,7 @@ export async function GET(request: NextRequest) {
       pageViews: analyticsData.filter(entry => entry.event === 'page_view').length,
       topPages: getTopPages(analyticsData),
       topReferrers: getTopReferrers(analyticsData),
+      topLocations: getTopLocations(analyticsData),
       deviceInfo: getDeviceInfo(analyticsData),
       visitsByDay: getVisitsByDay(analyticsData),
       recentVisits: analyticsData.slice(-20).reverse()
@@ -170,6 +203,19 @@ const getDeviceInfo = (data: AnalyticsEntry[]) => {
   }, {} as Record<string, number>)
   
   return Object.entries(deviceCounts).map(([device, count]) => ({ device, count }))
+}
+
+const getTopLocations = (data: AnalyticsEntry[]) => {
+  const locationCounts = data.reduce((acc, entry) => {
+    const location = entry.country || 'Unknown'
+    acc[location] = (acc[location] || 0) + 1
+    return acc
+  }, {} as Record<string, number>)
+  
+  return Object.entries(locationCounts)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 10)
+    .map(([location, count]) => ({ location, count }))
 }
 
 const getVisitsByDay = (data: AnalyticsEntry[]) => {

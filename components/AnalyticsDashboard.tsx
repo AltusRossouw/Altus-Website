@@ -10,6 +10,7 @@ interface AnalyticsSummary {
   pageViews: number
   topPages: { page: string; count: number }[]
   topReferrers: { referrer: string; count: number }[]
+  topLocations: { location: string; count: number }[]
   deviceInfo: { device: string; count: number }[]
   visitsByDay: { date: string; count: number }[]
   recentVisits: any[]
@@ -211,7 +212,7 @@ const AnalyticsDashboard = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           {/* Top Pages */}
           <motion.div
             className="bg-dark-card p-6 rounded-lg border border-dark-border"
@@ -233,8 +234,8 @@ const AnalyticsDashboard = () => {
           {/* Top Referrers */}
           <motion.div
             className="bg-dark-card p-6 rounded-lg border border-dark-border"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
             <h3 className="text-xl font-semibold text-cyber-purple mb-4">Top Referrers</h3>
@@ -247,6 +248,28 @@ const AnalyticsDashboard = () => {
               ))}
             </div>
           </motion.div>
+
+          {/* Top Locations */}
+          <motion.div
+            className="bg-dark-card p-6 rounded-lg border border-dark-border"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <h3 className="text-xl font-semibold text-electric-blue mb-4">Top Locations</h3>
+            <div className="space-y-3">
+              {analytics.topLocations.map((location, index) => (
+                <div key={location.location} className="flex justify-between items-center">
+                  <span className="text-gray-300 truncate mr-4">
+                    {location.location === 'Local/Development' ? '🏠 Local' : 
+                     location.location === 'Unknown Location' ? '🌍 Unknown' : 
+                     `🌍 ${location.location}`}
+                  </span>
+                  <span className="text-electric-blue font-semibold">{location.count}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
@@ -255,7 +278,7 @@ const AnalyticsDashboard = () => {
             className="bg-dark-card p-6 rounded-lg border border-dark-border"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.6 }}
           >
             <h3 className="text-xl font-semibold text-circuit-orange mb-4">Device Types</h3>
             <div className="space-y-4">
@@ -289,7 +312,7 @@ const AnalyticsDashboard = () => {
             className="bg-dark-card p-6 rounded-lg border border-dark-border"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.7 }}
           >
             <h3 className="text-xl font-semibold text-electric-blue mb-4">Visits (Last 7 Days)</h3>
             <div className="space-y-3">
@@ -324,7 +347,7 @@ const AnalyticsDashboard = () => {
           className="bg-dark-card p-6 rounded-lg border border-dark-border"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
+          transition={{ delay: 0.8 }}
         >
           <h3 className="text-xl font-semibold text-white mb-4">Recent Visits</h3>
           <div className="overflow-x-auto">
@@ -348,7 +371,13 @@ const AnalyticsDashboard = () => {
                     <td className="p-2 text-gray-300">
                       {visit.referrer === 'direct' ? 'Direct' : new URL(visit.referrer || 'unknown://unknown').hostname}
                     </td>
-                    <td className="p-2 text-gray-300">{visit.country || visit.timezone}</td>
+                    <td className="p-2 text-gray-300">
+                      {visit.country !== 'Unknown Location' && visit.country !== 'Local/Development' 
+                        ? visit.country 
+                        : visit.country === 'Local/Development'
+                        ? 'Local'
+                        : visit.timezone || 'Unknown'}
+                    </td>
                     <td className="p-2 text-gray-300">
                       {visit.userAgent.includes('Mobile') ? 'Mobile' : 
                        visit.userAgent.includes('Tablet') ? 'Tablet' : 'Desktop'}
