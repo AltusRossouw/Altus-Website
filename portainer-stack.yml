@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  altus-website:
+    build: 
+      context: https://github.com/AltusRossouw/Altus-Website.git
+      dockerfile: Dockerfile
+    container_name: altus-rossouw-website
+    ports:
+      - "3123:3000"
+    environment:
+      - NODE_ENV=production
+      - ANALYTICS_TOKEN=altus-analytics-secret-2025
+      - NEXT_TELEMETRY_DISABLED=1
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+    volumes:
+      - altus_analytics_data:/app/data
+    restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "traefik.enable=false"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  altus_analytics_data:
+    driver: local

@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { Cpu, Zap, Wifi, Code, Mail, Github, Linkedin, ExternalLink, Instagram } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { useAnalytics } from '../lib/analytics'
 
 const CircuitLine = ({ delay = 0 }: { delay?: number }) => (
   <motion.div
@@ -52,6 +53,7 @@ const FloatingIcon = ({
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const { trackEvent } = useAnalytics()
 
   useEffect(() => {
     setIsLoaded(true)
@@ -136,6 +138,7 @@ export default function Home() {
               <motion.a
                 href="#projects"
                 className="px-8 py-4 bg-gradient-to-r from-electric-blue to-cyber-purple text-white font-semibold rounded-lg neon-border inline-block"
+                onClick={() => trackEvent('button_click', { button: 'view_projects', location: 'hero' })}
               >
                 <motion.span
                   whileHover={{ scale: 1.05 }}
@@ -149,6 +152,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 py-4 border-2 border-neon-green text-neon-green font-semibold rounded-lg hover:bg-neon-green hover:text-dark-bg transition-all duration-300 inline-block"
+                onClick={() => trackEvent('external_link_click', { link: 'github_profile', location: 'hero' })}
               >
                 <motion.span
                   whileHover={{ scale: 1.05 }}
@@ -370,7 +374,10 @@ export default function Home() {
                   <motion.button
                     className={`flex items-center text-${project.color} hover:underline`}
                     whileHover={{ x: 5 }}
-                    onClick={() => window.open(project.link, '_blank')}
+                    onClick={() => {
+                      trackEvent('project_click', { project: project.title, location: 'projects_section' })
+                      window.open(project.link, '_blank')
+                    }}
                   >
                     View Project <ExternalLink size={16} className="ml-1" />
                   </motion.button>
@@ -428,6 +435,7 @@ export default function Home() {
                   whileInView={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.4 + (index * 0.1), duration: 0.5 }}
                   viewport={{ once: true }}
+                  onClick={() => trackEvent('contact_click', { contact_method: label.toLowerCase(), location: 'contact_section' })}
                 >
                   <Icon size={32} />
                   <span className="mt-2 text-sm">{label}</span>
@@ -446,6 +454,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 py-4 bg-gradient-to-r from-circuit-orange to-electric-blue text-white font-semibold rounded-lg neon-border inline-block"
+                onClick={() => trackEvent('cta_click', { cta: 'connect_github', location: 'contact_section' })}
               >
                 <motion.span
                   whileHover={{ scale: 1.05 }}

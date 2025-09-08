@@ -1,0 +1,188 @@
+import { NextRequest, NextResponse } from 'next/server'
+import fs from 'fs'
+import path from 'path'
+
+interface AnalyticsEntry {
+  timestamp: string
+  userAgent: string
+  referrer: string
+  pathname: string
+  screenResolution: string
+  language: string
+  timezone: string
+  sessionId: string
+  event: string
+  pageName?: string
+  eventData?: Record<string, any>
+  ip?: string
+  country?: string
+}
+
+const ANALYTICS_FILE = path.join(process.cwd(), 'data', 'analytics.json')
+
+// Ensure data directory exists
+const ensureDataDirectory = () => {
+  const dataDir = path.dirname(ANALYTICS_FILE)
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true })
+  }
+}
+
+// Simple IP to location mapping (basic implementation)
+const getLocationFromIP = (ip: string): string => {
+  // In a real implementation, you'd use a service like GeoIP
+  // For now, we'll just return 'Unknown'
+  return 'Unknown'
+}
+
+const readAnalyticsData = (): AnalyticsEntry[] => {
+  try {
+    if (fs.existsSync(ANALYTICS_FILE)) {
+      const data = fs.readFileSync(ANALYTICS_FILE, 'utf8')
+      return JSON.parse(data)
+    }
+    return []
+  } catch (error) {
+    console.error('Error reading analytics data:', error)
+    return []
+  }
+}
+
+const writeAnalyticsData = (data: AnalyticsEntry[]) => {
+  try {
+    ensureDataDirectory()
+    fs.writeFileSync(ANALYTICS_FILE, JSON.stringify(data, null, 2))
+  } catch (error) {
+    console.error('Error writing analytics data:', error)
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json()
+    
+    // Get client IP
+    const forwarded = request.headers.get('x-forwarded-for')
+    const ip = forwarded ? forwarded.split(', ')[0] : request.headers.get('x-real-ip') || 'unknown'
+    
+    // Create analytics entry
+    const entry: AnalyticsEntry = {
+      ...body,
+      ip: ip,
+      country: getLocationFromIP(ip),
+    }
+
+    // Read existing data
+    const analyticsData = readAnalyticsData()
+    
+    // Add new entry
+    analyticsData.push(entry)
+    
+    // Keep only last 1000 entries to prevent file from growing too large
+    const recentData = analyticsData.slice(-1000)
+    
+    // Write back to file
+    writeAnalyticsData(recentData)
+
+    return NextResponse.json({ success: true, message: 'Analytics data recorded' })
+    
+  } catch (error) {
+    console.error('Analytics API error:', error)
+    return NextResponse.json(
+      { success: false, message: 'Error recording analytics' }, 
+      { status: 500 }
+    )
+  }
+}
+
+export async function GET(request: NextRequest) {
+  try {
+    // Simple authentication - you might want to add proper auth
+    const authHeader = request.headers.get('authorization')
+    const expectedToken = process.env.ANALYTICS_TOKEN || 'your-secret-token'
+    
+    if (authHeader !== `Bearer ${expectedToken}`) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const analyticsData = readAnalyticsData()
+    
+    // Basic analytics summary
+    const summary = {
+      totalVisits: analyticsData.length,
+      uniqueVisitors: new Set(analyticsData.map(entry => entry.sessionId)).size,
+      pageViews: analyticsData.filter(entry => entry.event === 'page_view').length,
+      topPages: getTopPages(analyticsData),
+      topReferrers: getTopReferrers(analyticsData),
+      deviceInfo: getDeviceInfo(analyticsData),
+      visitsByDay: getVisitsByDay(analyticsData),
+      recentVisits: analyticsData.slice(-20).reverse()
+    }
+
+    return NextResponse.json(summary)
+    
+  } catch (error) {
+    console.error('Analytics GET error:', error)
+    return NextResponse.json(
+      { error: 'Error retrieving analytics' }, 
+      { status: 500 }
+    )
+  }
+}
+
+const getTopPages = (data: AnalyticsEntry[]) => {
+  const pageViews = data.filter(entry => entry.event === 'page_view')
+  const pageCounts = pageViews.reduce((acc, entry) => {
+    acc[entry.pathname] = (acc[entry.pathname] || 0) + 1
+    return acc
+  }, {} as Record<string, number>)
+  
+  return Object.entries(pageCounts)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 10)
+    .map(([page, count]) => ({ page, count }))
+}
+
+const getTopReferrers = (data: AnalyticsEntry[]) => {
+  const referrerCounts = data.reduce((acc, entry) => {
+    const referrer = entry.referrer === 'direct' ? 'Direct' : new URL(entry.referrer || 'unknown://unknown').hostname
+    acc[referrer] = (acc[referrer] || 0) + 1
+    return acc
+  }, {} as Record<string, number>)
+  
+  return Object.entries(referrerCounts)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 10)
+    .map(([referrer, count]) => ({ referrer, count }))
+}
+
+const getDeviceInfo = (data: AnalyticsEntry[]) => {
+  const devices = data.map(entry => {
+    const ua = entry.userAgent.toLowerCase()
+    if (ua.includes('mobile')) return 'Mobile'
+    if (ua.includes('tablet')) return 'Tablet'
+    return 'Desktop'
+  })
+  
+  const deviceCounts = devices.reduce((acc, device) => {
+    acc[device] = (acc[device] || 0) + 1
+    return acc
+  }, {} as Record<string, number>)
+  
+  return Object.entries(deviceCounts).map(([device, count]) => ({ device, count }))
+}
+
+const getVisitsByDay = (data: AnalyticsEntry[]) => {
+  const last7Days = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date()
+    date.setDate(date.getDate() - i)
+    return date.toISOString().split('T')[0]
+  }).reverse()
+  
+  const visitsByDay = last7Days.map(day => {
+    const count = data.filter(entry => entry.timestamp.startsWith(day)).length
+    return { date: day, count }
+  })
+  
+  return visitsByDay
+}
