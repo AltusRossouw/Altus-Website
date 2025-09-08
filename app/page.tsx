@@ -306,13 +306,6 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: 'ESP32-AZ-Radar',
-                description: 'Advanced radar detection system using ESP32 and mmWave technology. Real-time data processing with wireless communication, optimized for accuracy and power efficiency.',
-                tech: ['ESP32', 'mmWave Technology', 'C/C++', 'Real-time Processing'],
-                color: 'electric-blue',
-                link: 'https://github.com/AltusRossouw'
-              },
-              {
                 title: 'I2C-MQTT-Bridge',
                 description: 'Seamless bridge between I2C devices and MQTT networks. Enables legacy sensors to communicate with modern IoT infrastructure with industrial-grade reliability.',
                 tech: ['I2C Protocol', 'MQTT', 'ESP32', 'IoT Integration'],
@@ -321,14 +314,14 @@ export default function Home() {
               },
               {
                 title: 'LD2420-ESP Integration',
-                description: 'Specialized ESP32 implementation for LD2420 sensor integration. Custom communication protocols with precision measurement and real-time data transmission.',
+                description: 'ESP32 implementation for LD2420 sensor integration. Custom communication protocols with precision measurement and real-time data transmission.',
                 tech: ['ESP32', 'Sensor Integration', 'Custom Protocols', 'Data Processing'],
                 color: 'cyber-purple',
                 link: 'https://github.com/AltusRossouw'
               },
               {
                 title: 'WebUntisApp',
-                description: 'Full-stack web application with modern UI/UX design. Demonstrates proficiency in web technologies alongside embedded systems expertise.',
+                description: 'Full-stack web application with modern UI/UX design. Demonstrates proficiency in integrating web technologies and embedded systems.',
                 tech: ['JavaScript', 'HTML/CSS', 'Full-stack', 'Responsive Design'],
                 color: 'circuit-orange',
                 link: 'https://github.com/AltusRossouw'
