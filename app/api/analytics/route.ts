@@ -139,6 +139,23 @@ export async function GET(request: NextRequest) {
 
     const analyticsData = readAnalyticsData()
     
+    // Check if CSV export is requested
+    const { searchParams } = new URL(request.url)
+    const format = searchParams.get('format')
+    
+    if (format === 'csv') {
+      // Generate CSV data
+      const csvData = generateCSV(analyticsData)
+      
+      return new NextResponse(csvData, {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/csv',
+          'Content-Disposition': `attachment; filename="analytics-${new Date().toISOString().split('T')[0]}.csv"`
+        }
+      })
+    }
+    
     // Basic analytics summary
     const summary = {
       totalVisits: analyticsData.length,
@@ -231,4 +248,60 @@ const getVisitsByDay = (data: AnalyticsEntry[]) => {
   })
   
   return visitsByDay
+}
+
+// CSV generation function
+const generateCSV = (data: AnalyticsEntry[]): string => {
+  // CSV headers
+  const headers = [
+    'Timestamp',
+    'Event',
+    'Page Name', 
+    'Pathname',
+    'Referrer',
+    'Location',
+    'IP',
+    'User Agent',
+    'Screen Resolution',
+    'Language',
+    'Timezone',
+    'Session ID',
+    'Device Type'
+  ]
+  
+  // Convert data to CSV rows
+  const rows = data.map(entry => {
+    const deviceType = entry.userAgent.toLowerCase().includes('mobile') ? 'Mobile' :
+                      entry.userAgent.toLowerCase().includes('tablet') ? 'Tablet' : 'Desktop'
+    
+    return [
+      new Date(entry.timestamp).toISOString(),
+      entry.event || 'unknown',
+      entry.pageName || '',
+      entry.pathname || '/',
+      entry.referrer === 'direct' ? 'Direct' : entry.referrer || '',
+      entry.country || 'Unknown',
+      entry.ip || 'unknown',
+      entry.userAgent || '',
+      entry.screenResolution || '',
+      entry.language || '',
+      entry.timezone || '',
+      entry.sessionId || '',
+      deviceType
+    ].map(field => {
+      // Escape quotes and wrap in quotes if contains comma, quote, or newline
+      const escaped = String(field).replace(/"/g, '""')
+      return escaped.includes(',') || escaped.includes('"') || escaped.includes('\n') 
+        ? `"${escaped}"` 
+        : escaped
+    })
+  })
+  
+  // Combine headers and rows
+  const csvContent = [
+    headers.join(','),
+    ...rows.map(row => row.join(','))
+  ].join('\n')
+  
+  return csvContent
 }

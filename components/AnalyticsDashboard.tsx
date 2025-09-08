@@ -75,6 +75,45 @@ const AnalyticsDashboard = () => {
     fetchAnalytics(token.trim())
   }
 
+  const handleExportCSV = async () => {
+    try {
+      setError(null)
+      const response = await fetch('/api/analytics?format=csv', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      
+      if (response.ok) {
+        const blob = await response.blob()
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `analytics-${new Date().toISOString().split('T')[0]}.csv`
+        document.body.appendChild(a)
+        a.click()
+        window.URL.revokeObjectURL(url)
+        document.body.removeChild(a)
+        
+        // Show success feedback
+        const originalText = 'Export CSV'
+        const button = document.querySelector('.export-btn')
+        if (button) {
+          button.textContent = '✓ Downloaded'
+          setTimeout(() => {
+            button.innerHTML = `<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>Export CSV`
+          }, 2000)
+        }
+      } else {
+        setError('Failed to export CSV data')
+      }
+    } catch (err) {
+      setError('Error downloading CSV file')
+    }
+  }
+
   const getDeviceIcon = (device: string) => {
     switch (device.toLowerCase()) {
       case 'mobile': return <Smartphone className="w-4 h-4" />
@@ -170,20 +209,31 @@ const AnalyticsDashboard = () => {
             <h1 className="text-3xl font-bold text-electric-blue mb-2">
               Website Analytics Dashboard
             </h1>
-            <p className="text-gray-400">Monitor your website's performance and visitor insights</p>
+            <p className="text-gray-400">Monitor your website's performance and visitor insights • Export data as CSV</p>
           </div>
-          <button
-            onClick={() => {
-              setAuthenticated(false)
-              setAnalytics(null)
-              setToken('')
-              setError(null)
-              setLoading(false)
-            }}
-            className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Logout
-          </button>
+          <div className="flex space-x-3">
+            <button
+              onClick={handleExportCSV}
+              className="export-btn bg-neon-green text-dark-bg px-4 py-2 rounded-lg hover:bg-neon-green/90 transition-colors flex items-center"
+            >
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Export CSV
+            </button>
+            <button
+              onClick={() => {
+                setAuthenticated(false)
+                setAnalytics(null)
+                setToken('')
+                setError(null)
+                setLoading(false)
+              }}
+              className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+            >
+              Logout
+            </button>
+          </div>
         </motion.div>
 
         {/* Overview Cards */}
