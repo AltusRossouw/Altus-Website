@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Cpu, Zap, Wifi, Code, Mail, Github, Linkedin, ExternalLink } from 'lucide-react'
+import { Cpu, Zap, Wifi, Code, Mail, Github, Linkedin, ExternalLink, Instagram } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 const CircuitLine = ({ delay = 0 }: { delay?: number }) => (
@@ -72,20 +72,20 @@ export default function Home() {
         animate={{ y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 py-3">
           <div className="flex justify-between items-center">
             <motion.h1
-              className="text-xl font-bold text-electric-blue glow-text"
+              className="text-lg sm:text-xl font-bold text-electric-blue glow-text"
               whileHover={{ scale: 1.05 }}
             >
               Altus Rossouw
             </motion.h1>
-            <div className="flex space-x-6">
+            <div className="flex space-x-3 sm:space-x-4 md:space-x-6">
               {['About', 'Projects', 'Skills', 'Contact'].map((item, index) => (
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="text-white hover:text-electric-blue transition-colors duration-300"
+                  className="text-xs sm:text-sm md:text-base text-white hover:text-electric-blue transition-colors duration-300 whitespace-nowrap"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * index }}
@@ -108,15 +108,14 @@ export default function Home() {
             transition={{ duration: 1, ease: "easeOut" }}
           >
             <motion.h1
-              className="text-5xl md:text-7xl font-bold mb-6 text-white"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-white leading-tight"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
               <span className="text-electric-blue glow-text">IoT</span> &{' '}
-              <span className="text-neon-green glow-text">Electronics</span>
               <br />
-              Engineer
+              <span className="text-cyber-purple glow-text">Software</span> Engineer
             </motion.h1>
             
             <motion.p
@@ -418,6 +417,7 @@ export default function Home() {
                 { Icon: Mail, label: 'Email', href: 'mailto:altusrossouw2@gmail.com' },
                 { Icon: Github, label: 'GitHub Profile', href: 'https://github.com/AltusRossouw' },
                 { Icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/in/altus-rossouw-92b234245' },
+                { Icon: Instagram, label: 'Instagram', href: 'https://instagram.com/altus.rossouw' },
               ].map(({ Icon, label, href }, index) => (
                 <motion.a
                   key={label}

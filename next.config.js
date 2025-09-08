@@ -1,12 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  output: 'standalone',
   trailingSlash: true,
   images: {
     unoptimized: true
   },
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/Altus-Website' : '',
-  basePath: process.env.NODE_ENV === 'production' ? '/Altus-Website' : '',
+  // Remove the assetPrefix and basePath for Docker deployment
+  // assetPrefix: process.env.NODE_ENV === 'production' ? '/Altus-Website' : '',
+  // basePath: process.env.NODE_ENV === 'production' ? '/Altus-Website' : '',
 }
 
 module.exports = nextConfig

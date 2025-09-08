@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  altus-website:
+    build: .
+    container_name: altus-rossouw-website
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
