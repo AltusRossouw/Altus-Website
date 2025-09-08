@@ -1,0 +1,86 @@
+ALTUS ROSSOUW
+Embedded Systems Developer & IoT Specialist
+
+Contact via GitHub: @AltusRossouw
+GitHub Profile: https://github.com/AltusRossouw
+
+PROFESSIONAL SUMMARY
+Experienced embedded systems developer with a strong focus on IoT solutions, ESP32 microcontrollers, and communication protocols. Skilled in developing radar systems, sensor integration, MQTT communications, and web-based interfaces. Active on GitHub since 2016 with a portfolio of 15+ public repositories demonstrating expertise in hardware-software integration and real-world IoT applications.
+
+TECHNICAL SKILLS
+
+Programming Languages:
+- C/C++ (Embedded Systems)
+- Python
+- JavaScript/HTML/CSS
+- Assembly Language
+
+Microcontrollers & Hardware:
+- ESP32/ESP8266 Development
+- I2C Communication Protocols
+- MQTT Messaging
+- Sensor Integration
+- Radar Systems (mmWave Technology)
+
+Technologies & Frameworks:
+- Arduino IDE/PlatformIO
+- Web UI Development
+- Real-time Communication Systems
+- IoT Device Management
+- Network Protocols
+
+Tools & Platforms:
+- Git Version Control
+- GitHub for Project Management
+- Hardware Debugging Tools
+- Circuit Design and Analysis
+
+FEATURED PROJECTS
+
+ESP32-AZ-Radar - Advanced Radar Detection System
+- Developed ESP32-based radar detection solution using mmWave technology
+- Implemented real-time data processing and wireless communication
+- Optimized for accuracy and power efficiency in embedded environment
+
+I2C-MQTT-Bridge - IoT Communication Bridge
+- Created seamless bridge between I2C devices and MQTT networks
+- Enables legacy sensors to communicate with modern IoT infrastructure
+- Designed for reliability and scalability in industrial applications
+
+LD2420-ESP - Sensor Integration Platform
+- Specialized ESP32 implementation for LD2420 sensor integration
+- Developed custom communication protocols and data processing algorithms
+- Focus on precision measurement and real-time data transmission
+
+WebUntisApp - Web Application Development
+- Full-stack web application with modern UI/UX design
+- Demonstrates proficiency in web technologies alongside embedded systems
+- Integration of backend services with user-friendly interfaces
+
+IntellixLabs-Webui - Professional Web Interface
+- Enterprise-level web UI development
+- Showcases ability to work on commercial-grade software solutions
+- Advanced front-end development with responsive design principles
+
+PROFESSIONAL EXPERIENCE
+
+Independent Developer & IoT Specialist (2016 - Present)
+- Embedded Systems Development: Designed and implemented multiple ESP32-based IoT solutions with focus on sensor integration and wireless communication
+- Radar Technology: Specialized in mmWave radar systems for motion detection and environmental sensing applications
+- Protocol Implementation: Developed custom communication protocols including I2C-MQTT bridging solutions
+- Web Development: Created professional web interfaces and applications for IoT device management
+- Open Source Contribution: Maintained 15+ public repositories with comprehensive documentation and community engagement
+
+KEY ACHIEVEMENTS
+- 8+ Years on GitHub: Consistent development activity since 2016 with regular contributions
+- IoT Innovation: Successfully bridged legacy I2C devices with modern MQTT networks
+- Radar Expertise: Developed advanced ESP32-based radar detection systems
+- Cross-Platform Skills: Demonstrated versatility across embedded systems, web development, and IoT platforms
+- Community Engagement: Active in open-source community with public repositories and collaborative projects
+
+INTERESTS
+- Internet of Things (IoT) and Industry 4.0
+- Radar and Sensor Technology
+- Wireless Communication Protocols
+- Embedded Systems Optimization
+- Open Source Hardware and Software Development
