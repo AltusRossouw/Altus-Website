@@ -110,6 +110,15 @@ export default function Home() {
             transition={{ duration: 1, ease: "easeOut" }}
           >
             <motion.h1
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-4 text-white"
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.8 }}
+            >
+              Altus Rossouw
+            </motion.h1>
+            
+            <motion.h2
               className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-white leading-tight"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -118,7 +127,7 @@ export default function Home() {
               <span className="text-electric-blue glow-text">IoT</span> &{' '}
               <br />
               <span className="text-cyber-purple glow-text">Software</span> Engineer
-            </motion.h1>
+            </motion.h2>
             
             <motion.p
               className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
