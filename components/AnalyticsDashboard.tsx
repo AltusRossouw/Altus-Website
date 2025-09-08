@@ -17,43 +17,61 @@ interface AnalyticsSummary {
 
 const AnalyticsDashboard = () => {
   const [analytics, setAnalytics] = useState<AnalyticsSummary | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [token, setToken] = useState('')
   const [authenticated, setAuthenticated] = useState(false)
 
   const fetchAnalytics = async (authToken: string) => {
     try {
+      setLoading(true)
+      setError(null)
+
+      // Add timeout to prevent infinite loading
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+
       const response = await fetch('/api/analytics', {
         headers: {
           'Authorization': `Bearer ${authToken}`
-        }
+        },
+        signal: controller.signal
       })
+      
+      clearTimeout(timeoutId)
       
       if (response.status === 401) {
         setError('Invalid authentication token')
+        setLoading(false)
         return
       }
       
       if (!response.ok) {
-        throw new Error('Failed to fetch analytics')
+        throw new Error(`Failed to fetch analytics: ${response.status}`)
       }
       
       const data = await response.json()
       setAnalytics(data)
       setAuthenticated(true)
       setError(null)
+      setLoading(false)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error fetching analytics')
-    } finally {
+      if (err instanceof Error && err.name === 'AbortError') {
+        setError('Request timed out. Please check your connection and try again.')
+      } else {
+        setError(err instanceof Error ? err.message : 'Error fetching analytics')
+      }
       setLoading(false)
     }
   }
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
-    fetchAnalytics(token)
+    if (!token.trim()) {
+      setError('Please enter an access token')
+      return
+    }
+    fetchAnalytics(token.trim())
   }
 
   const getDeviceIcon = (device: string) => {
@@ -86,6 +104,11 @@ const AnalyticsDashboard = () => {
                 placeholder="Enter analytics token"
                 required
               />
+              {process.env.NODE_ENV === 'development' && (
+                <p className="text-xs text-gray-500 mt-1">
+                  Dev hint: Check .env.local for ANALYTICS_TOKEN or try "altus-analytics-2024"
+                </p>
+              )}
             </div>
             {error && (
               <div className="mb-4 p-3 bg-red-900/20 border border-red-500 rounded-lg text-red-400 text-sm">
@@ -94,11 +117,24 @@ const AnalyticsDashboard = () => {
             )}
             <button
               type="submit"
-              disabled={loading}
-              className="w-full bg-electric-blue text-dark-bg p-3 rounded-lg font-semibold hover:bg-electric-blue/90 transition-colors disabled:opacity-50"
+              disabled={loading || !token.trim()}
+              className="w-full bg-electric-blue text-dark-bg p-3 rounded-lg font-semibold hover:bg-electric-blue/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-3"
             >
               {loading ? 'Authenticating...' : 'Access Dashboard'}
             </button>
+            {(loading || error) && (
+              <button
+                type="button"
+                onClick={() => {
+                  setLoading(false)
+                  setError(null)
+                  setToken('')
+                }}
+                className="w-full bg-gray-600 text-white p-2 rounded-lg text-sm hover:bg-gray-500 transition-colors"
+              >
+                Reset
+              </button>
+            )}
           </form>
         </motion.div>
       </div>
@@ -127,12 +163,26 @@ const AnalyticsDashboard = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-8 flex justify-between items-center"
         >
-          <h1 className="text-3xl font-bold text-electric-blue mb-2">
-            Website Analytics Dashboard
-          </h1>
-          <p className="text-gray-400">Monitor your website's performance and visitor insights</p>
+          <div>
+            <h1 className="text-3xl font-bold text-electric-blue mb-2">
+              Website Analytics Dashboard
+            </h1>
+            <p className="text-gray-400">Monitor your website's performance and visitor insights</p>
+          </div>
+          <button
+            onClick={() => {
+              setAuthenticated(false)
+              setAnalytics(null)
+              setToken('')
+              setError(null)
+              setLoading(false)
+            }}
+            className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+          >
+            Logout
+          </button>
         </motion.div>
 
         {/* Overview Cards */}
