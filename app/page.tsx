@@ -83,10 +83,10 @@ export default function Home() {
               Altus Rossouw
             </motion.h1>
             <div className="flex space-x-3 sm:space-x-4 md:space-x-6">
-              {['About', 'Projects', 'Skills', 'Contact'].map((item, index) => (
+              {['About', 'Projects', 'Web Development', 'Skills', 'Contact'].map((item, index) => (
                 <motion.a
                   key={item}
-                  href={`#${item.toLowerCase()}`}
+                  href={`#${item.toLowerCase().replace(' ', '-')}`}
                   className="text-xs sm:text-sm md:text-base text-white hover:text-electric-blue transition-colors duration-300 whitespace-nowrap"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -263,7 +263,7 @@ export default function Home() {
               { title: 'Programming', skills: ['C/C++', 'Python', 'JavaScript/HTML/CSS', 'Embedded C', 'Hardware Debugging'], icon: Code },
               { title: 'IoT & Communication', skills: ['MQTT Messaging', 'I2C Protocols', 'Wireless Networks', 'IoT Device Management', 'Network Protocols'], icon: Wifi },
               { title: 'Sensor & Radar Tech', skills: ['mmWave Technology', 'Sensor Integration', 'Radar Detection Systems', 'Data Processing', 'Environmental Sensing'], icon: Zap },
-              { title: 'Web Development', skills: ['Web UI Development', 'Responsive Design', 'Full-stack Applications', 'Real-time Interfaces', 'Enterprise Solutions'], icon: Code },
+              { title: 'Web Development', skills: ['React/Next.js', 'TypeScript/JavaScript', 'Tailwind CSS', 'Framer Motion', 'Responsive Design', 'Real-time Interfaces', 'Analytics Integration', 'Enterprise Solutions'], icon: Code },
               { title: 'Tools & Platforms', skills: ['Git Version Control', 'GitHub', 'Circuit Design', 'Hardware Analysis', 'Open Source Development'], icon: Cpu },
             ].map((category, index) => (
               <motion.div
@@ -383,6 +383,110 @@ export default function Home() {
                   >
                     View Project <ExternalLink size={16} className="ml-1" />
                   </motion.button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Web Development Section */}
+      <section id="web-development" className="py-20">
+        <div className="container mx-auto px-6">
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold text-center mb-12 text-neon-green glow-text"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+          >
+            Web Development Portfolio
+          </motion.h2>
+          
+          <motion.p
+            className="text-lg text-gray-300 text-center mb-12 max-w-3xl mx-auto"
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            Professional web development projects showcasing modern technologies, responsive design, 
+            and enterprise-level solutions across various industries.
+          </motion.p>
+          
+          <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'OrbitX Cloud Platform',
+                description: 'Advanced cloud infrastructure platform with modern UI/UX design. Features real-time monitoring, scalable architecture, and enterprise-grade security solutions.',
+                url: 'https://orbitx.cloud',
+                tech: ['React', 'TypeScript', 'Cloud Infrastructure', 'Real-time Monitoring', 'Enterprise Security'],
+                color: 'electric-blue',
+                features: ['Cloud Management', 'Real-time Analytics', 'Scalable Architecture', 'Security Solutions']
+              },
+              {
+                title: 'IntellixLabs Corporate Site',
+                description: 'Professional corporate website for technology consulting firm. Clean, modern design with responsive layout and integrated business solutions.',
+                url: 'https://intellixlabs.co.za',
+                tech: ['Next.js', 'Tailwind CSS', 'Responsive Design', 'Business Integration', 'Professional UI'],
+                color: 'cyber-purple',
+                features: ['Corporate Branding', 'Service Showcase', 'Contact Integration', 'Professional Design']
+              },
+              {
+                title: 'Personal Portfolio',
+                description: 'This portfolio website demonstrating modern web development practices. Built with Next.js, TypeScript, and advanced animations for optimal user experience.',
+                url: 'https://altusrossouw.co.za',
+                tech: ['Next.js', 'TypeScript', 'Framer Motion', 'Tailwind CSS', 'Analytics Integration'],
+                color: 'neon-green',
+                features: ['Interactive Animations', 'Responsive Design', 'Analytics Tracking', 'Modern UI/UX']
+              }
+            ].map((project, index) => (
+              <motion.div
+                key={project.title}
+                className="bg-dark-card p-6 rounded-lg border border-dark-border hover:border-current transition-all duration-300 group"
+                style={{ '--tw-border-opacity': '0.3' } as any}
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: index * 0.2, duration: 0.8 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className={`text-${project.color} mb-4`}>
+                  <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+                  <p className="text-gray-300 mb-4">{project.description}</p>
+                  
+                  <div className="mb-4">
+                    <h4 className="text-sm font-semibold text-white mb-2">Key Features:</h4>
+                    <ul className="text-sm text-gray-300 space-y-1">
+                      {project.features.map((feature) => (
+                        <li key={feature}>• {feature}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className={`px-3 py-1 bg-${project.color}/20 text-${project.color} rounded-full text-sm border border-${project.color}/30`}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <motion.a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center text-${project.color} hover:underline`}
+                    whileHover={{ x: 5 }}
+                    onClick={() => {
+                      trackEvent('web_project_click', { project: project.title, url: project.url, location: 'web_development_section' })
+                    }}
+                  >
+                    Visit Website <ExternalLink size={16} className="ml-1" />
+                  </motion.a>
                 </div>
               </motion.div>
             ))}

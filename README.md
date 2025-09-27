@@ -50,33 +50,6 @@ A modern, interactive portfolio website showcasing embedded systems development 
 - Node.js 18+ 
 - npm or yarn
 
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/AltusRossouw/Altus-Website.git
-   cd Altus-Website
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-The static files will be generated in the `out` directory, ready for deployment.
 
 ## 🌐 Deployment
 
