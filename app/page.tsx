@@ -82,18 +82,25 @@ export default function Home() {
             >
               Altus Rossouw
             </motion.h1>
-            <div className="flex space-x-3 sm:space-x-4 md:space-x-6">
-              {['About', 'Projects', 'Web Development', 'Skills', 'Contact'].map((item, index) => (
+            <div className="flex space-x-1 sm:space-x-2 md:space-x-4 lg:space-x-6 overflow-x-auto scrollbar-hide">
+              {[
+                { label: 'About', mobileLabel: 'About' },
+                { label: 'Projects', mobileLabel: 'Projects' },
+                { label: 'Web Development', mobileLabel: 'Web' },
+                { label: 'Skills', mobileLabel: 'Skills' },
+                { label: 'Contact', mobileLabel: 'Contact' }
+              ].map((item, index) => (
                 <motion.a
-                  key={item}
-                  href={`#${item.toLowerCase().replace(' ', '-')}`}
-                  className="text-xs sm:text-sm md:text-base text-white hover:text-electric-blue transition-colors duration-300 whitespace-nowrap"
+                  key={item.label}
+                  href={`#${item.label.toLowerCase().replace(' ', '-')}`}
+                  className="text-xs sm:text-sm md:text-base text-white hover:text-electric-blue transition-colors duration-300 whitespace-nowrap px-1 sm:px-2"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * index }}
                   whileHover={{ scale: 1.1 }}
                 >
-                  {item}
+                  <span className="sm:hidden">{item.mobileLabel}</span>
+                  <span className="hidden sm:inline">{item.label}</span>
                 </motion.a>
               ))}
             </div>
