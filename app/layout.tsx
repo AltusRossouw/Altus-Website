@@ -13,6 +13,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script 
+          defer 
+          src="https://umami.intellixlabs.co.za/script.js" 
+          data-website-id="01664ec1-1cd3-440f-abfe-d63b8420e31e"
+        />
+      </head>
       <body className="bg-dark-bg text-white">{children}</body>
     </html>
   )
