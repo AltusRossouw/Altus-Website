@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Cpu, Zap, Wifi, Code, Mail, Github, Linkedin, ExternalLink, Instagram } from 'lucide-react'
+import { Cpu, Zap, Wifi, Code, Mail, Github, Linkedin, ExternalLink, Instagram, Menu, X } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useAnalytics } from '../lib/analytics'
 
@@ -53,11 +53,44 @@ const FloatingIcon = ({
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { trackEvent } = useAnalytics()
 
   useEffect(() => {
     setIsLoaded(true)
   }, [])
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+    trackEvent('mobile_menu_toggle', { 
+      action: isMobileMenuOpen ? 'close' : 'open',
+      location: 'navigation' 
+    })
+  }
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false)
+  }
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMobileMenuOpen) {
+        const target = event.target as Element
+        if (!target.closest('nav')) {
+          closeMobileMenu()
+        }
+      }
+    }
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isMobileMenuOpen])
 
   return (
     <div className="min-h-screen relative overflow-hidden circuit-bg">
@@ -82,29 +115,87 @@ export default function Home() {
             >
               Altus Rossouw
             </motion.h1>
-            <div className="flex space-x-1 sm:space-x-2 md:space-x-4 lg:space-x-6 overflow-x-auto scrollbar-hide">
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex space-x-4 lg:space-x-6">
               {[
-                { label: 'About', mobileLabel: 'About' },
-                { label: 'Projects', mobileLabel: 'Projects' },
-                { label: 'Web Development', mobileLabel: 'Web' },
-                { label: 'Skills', mobileLabel: 'Skills' },
-                { label: 'Contact', mobileLabel: 'Contact' }
+                { label: 'About', href: '#about' },
+                { label: 'Projects', href: '#projects' },
+                { label: 'Web Development', href: '#web-development' },
+                { label: 'Skills', href: '#skills' },
+                { label: 'Contact', href: '#contact' }
               ].map((item, index) => (
                 <motion.a
                   key={item.label}
-                  href={`#${item.label.toLowerCase().replace(' ', '-')}`}
-                  className="text-xs sm:text-sm md:text-base text-white hover:text-electric-blue transition-colors duration-300 whitespace-nowrap px-1 sm:px-2"
+                  href={item.href}
+                  className="text-sm lg:text-base text-white hover:text-electric-blue transition-colors duration-300"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * index }}
                   whileHover={{ scale: 1.1 }}
+                  onClick={() => trackEvent('desktop_menu_click', { 
+                    menu_item: item.label.toLowerCase().replace(' ', '-'),
+                    location: 'desktop_navigation' 
+                  })}
                 >
-                  <span className="sm:hidden">{item.mobileLabel}</span>
-                  <span className="hidden sm:inline">{item.label}</span>
+                  {item.label}
                 </motion.a>
               ))}
             </div>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              className="md:hidden p-2 text-white hover:text-electric-blue transition-colors duration-300"
+              onClick={toggleMobileMenu}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </motion.button>
           </div>
+
+          {/* Mobile Dropdown Menu */}
+          <motion.div
+            className={`md:hidden overflow-hidden ${isMobileMenuOpen ? 'max-h-96' : 'max-h-0'}`}
+            initial={false}
+            animate={{ 
+              height: isMobileMenuOpen ? 'auto' : 0,
+              opacity: isMobileMenuOpen ? 1 : 0
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <div className="py-4 space-y-2 border-t border-dark-border mt-3">
+              {[
+                { label: 'About', href: '#about' },
+                { label: 'Projects', href: '#projects' },
+                { label: 'Web Development', href: '#web-development' },
+                { label: 'Skills', href: '#skills' },
+                { label: 'Contact', href: '#contact' }
+              ].map((item, index) => (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  className="block px-4 py-3 text-white hover:text-electric-blue hover:bg-electric-blue/10 transition-all duration-300 rounded-lg"
+                  onClick={() => {
+                    closeMobileMenu()
+                    trackEvent('mobile_menu_click', { 
+                      menu_item: item.label.toLowerCase().replace(' ', '-'),
+                      location: 'mobile_navigation' 
+                    })
+                  }}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ 
+                    opacity: isMobileMenuOpen ? 1 : 0,
+                    x: isMobileMenuOpen ? 0 : -20
+                  }}
+                  transition={{ delay: index * 0.1, duration: 0.3 }}
+                  whileHover={{ x: 5 }}
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </motion.nav>
 
