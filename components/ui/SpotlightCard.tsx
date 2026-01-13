@@ -24,8 +24,11 @@ export default function SpotlightCard({
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
     
-    divRef.current.style.setProperty('--spotlight-x', `${x}px`)
-    divRef.current.style.setProperty('--spotlight-y', `${y}px`)
+    requestAnimationFrame(() => {
+        if (!divRef.current) return
+        divRef.current.style.setProperty('--spotlight-x', `${x}px`)
+        divRef.current.style.setProperty('--spotlight-y', `${y}px`)
+    })
   }
 
   const handleFocus = () => {
