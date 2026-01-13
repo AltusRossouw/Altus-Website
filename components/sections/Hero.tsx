@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 export default function Hero() {
   return (
@@ -14,6 +15,24 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
+          {/* Profile Image */}
+          <motion.div
+            className="mb-8 flex justify-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+          >
+            <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full overflow-hidden ring-4 ring-accent/30 ring-offset-4 ring-offset-dark-bg">
+              <Image
+                src="/images/placeholders/headshot.png"
+                alt="Altus Rossouw"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </motion.div>
+
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-text-primary mb-6 tracking-tight">
             Altus Rossouw
           </h1>
