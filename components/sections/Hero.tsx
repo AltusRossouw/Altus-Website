@@ -43,7 +43,7 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            Currently at <span className="text-accent font-medium">Azoteq</span> · Paarl, South Africa
+            Currently studying <a href="https://www.eduvos.com/programmes/bachelor-of-science-in-information-technology-software-engineering/" target="_blank" rel="noopener noreferrer" className="text-accent font-medium underline underline-offset-4 decoration-accent/50 hover:decoration-accent transition-all">Software Engineering</a>
           </motion.p>
         </motion.div>
       </div>

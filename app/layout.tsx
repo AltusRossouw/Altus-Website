@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import GrainOverlay from '@/components/ui/GrainOverlay'
+import DotGrid from '@/components/ui/DotGrid'
 
 export const metadata: Metadata = {
   title: 'Altus Rossouw - Embedded Systems Developer & IoT Specialist',
@@ -22,6 +23,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-dark-bg text-white">
+        <DotGrid />
         <GrainOverlay />
         {children}
       </body>
