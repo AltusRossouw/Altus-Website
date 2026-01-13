@@ -46,6 +46,14 @@ export default function ExperienceTimeline() {
       description: 'Contributed to workshop design and database integration projects.'
     },
     {
+      year: '2022 - 2023',
+      title: 'Mechanic & Guide',
+      company: 'Scott Sports',
+      location: 'Munich, Germany / Paarl, South Africa',
+      type: 'adventure',
+      description: 'Delivered technical support at international dealer events. Guided large groups and managed guest experiences.'
+    },
+    {
       year: '2022',
       title: 'Computer Network Manager',
       company: 'Clift College',
