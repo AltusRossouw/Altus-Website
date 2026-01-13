@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 10, 10, 11;
-  --background-end-rgb: 26, 26, 27;
+  --background-start-rgb: 5, 5, 5;
+  --background-end-rgb: 18, 18, 18;
 }
 
 * {
@@ -30,7 +30,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
 }
 
 a {
@@ -44,7 +44,7 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1b;
+  background: #121212;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -69,6 +69,10 @@ a {
   text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor;
 }
 
+.glow-text-nature {
+  text-shadow: 0 0 10px rgba(34, 139, 34, 0.5), 0 0 20px rgba(34, 139, 34, 0.3);
+}
+
 /* Neon border effect */
 .neon-border {
   box-shadow: 
@@ -85,4 +89,13 @@ a {
 }
 .scrollbar-hide::-webkit-scrollbar { 
   display: none;  /* Safari and Chrome */
+}
+
+/* Glassmorphism Card */
+.glass-card {
+  @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl transition-all duration-300;
+}
+
+.glass-card:hover {
+  @apply bg-white/10 border-electric-blue/50;
 }

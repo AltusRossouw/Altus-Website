@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import GrainOverlay from '@/components/ui/GrainOverlay'
 
 export const metadata: Metadata = {
   title: 'Altus Rossouw - Embedded Systems Developer & IoT Specialist',
@@ -20,7 +21,10 @@ export default function RootLayout({
           data-website-id="01664ec1-1cd3-440f-abfe-d63b8420e31e"
         />
       </head>
-      <body className="bg-dark-bg text-white">{children}</body>
+      <body className="bg-dark-bg text-white">
+        <GrainOverlay />
+        {children}
+      </body>
     </html>
   )
 }

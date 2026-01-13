@@ -10,10 +10,13 @@ module.exports = {
       colors: {
         'electric-blue': '#00D4FF',
         'neon-green': '#39FF14',
+        'nature-green': '#228B22',
+        'earth-gold': '#DAA520',
+        'mountain-grey': '#4A5568',
         'cyber-purple': '#8B5CF6',
         'circuit-orange': '#FF6B35',
-        'dark-bg': '#0A0A0B',
-        'dark-card': '#1A1A1B',
+        'dark-bg': '#050505',
+        'dark-card': '#121212',
         'dark-border': '#2A2A2B',
       },
       animation: {
@@ -40,6 +43,8 @@ module.exports = {
         },
       },
       fontFamily: {
+        'sans': ['Inter', 'sans-serif'],
+        'display': ['Space Grotesk', 'sans-serif'],
         'mono': ['JetBrains Mono', 'monospace'],
       },
     },
