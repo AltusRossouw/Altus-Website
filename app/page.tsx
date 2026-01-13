@@ -9,6 +9,7 @@ import About from '@/components/sections/About'
 import Experience from '@/components/sections/Experience'
 import Projects from '@/components/sections/Projects'
 import Contact from '@/components/sections/Contact'
+import Logo from '@/components/ui/Logo'
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -65,10 +66,11 @@ export default function Home() {
           <div className="flex justify-between items-center">
             <motion.a
               href="#"
-              className="text-lg font-semibold text-text-primary hover:text-accent transition-colors"
+              className="flex items-center gap-2 text-lg font-semibold text-text-primary hover:text-accent transition-colors group"
               whileHover={{ scale: 1.02 }}
             >
-              Altus Rossouw
+              <Logo />
+              <span className="group-hover:text-accent transition-colors">Altus Rossouw</span>
             </motion.a>
             
             {/* Desktop Navigation */}

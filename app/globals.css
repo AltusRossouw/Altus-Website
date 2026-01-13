@@ -54,8 +54,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #0A0A0B;
-  --foreground: #FAFAFA;
+  --background: #121212;
+  --foreground: #FFFFFF;
   --accent: #00D4FF;
 }
 
@@ -99,12 +99,12 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #27272A;
+  background: #333333;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #4D4D4D;
 }
 
 /* Utility classes */

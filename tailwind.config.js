@@ -10,11 +10,11 @@ module.exports = {
       colors: {
         'accent': '#00D4FF',
         'accent-muted': '#00D4FF20',
-        'dark-bg': '#0A0A0B',
-        'dark-card': '#141415',
-        'dark-border': '#27272A',
-        'text-primary': '#FAFAFA',
-        'text-secondary': '#71717A',
+        'dark-bg': '#121212',
+        'dark-card': '#1E1E1E',
+        'dark-border': '#333333',
+        'text-primary': '#FFFFFF',
+        'text-secondary': '#A1A1AA',
       },
       animation: {
         'fade-in': 'fade-in 0.6s ease-out forwards',

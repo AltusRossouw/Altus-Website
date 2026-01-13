@@ -143,17 +143,17 @@ const AnalyticsDashboard = () => {
           </h1>
           <form onSubmit={handleLogin}>
             <div className="mb-4">
-              <label className="block text-gray-300 mb-2">Access Token</label>
+              <label className="block text-text-secondary mb-2">Access Token</label>
               <input
                 type="password"
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
-                className="w-full p-3 bg-dark-bg border border-dark-border rounded-lg text-white focus:border-electric-blue focus:outline-none"
+                className="w-full p-3 bg-dark-bg border border-dark-border rounded-lg text-white focus:border-accent focus:outline-none"
                 placeholder="Enter analytics token"
                 required
               />
               {process.env.NODE_ENV === 'development' && (
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-text-secondary mt-1">
                   Dev hint: Check .env.local for ANALYTICS_TOKEN or try "altus-analytics-2024"
                 </p>
               )}
@@ -166,7 +166,7 @@ const AnalyticsDashboard = () => {
             <button
               type="submit"
               disabled={loading || !token.trim()}
-              className="w-full bg-electric-blue text-dark-bg p-3 rounded-lg font-semibold hover:bg-electric-blue/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-3"
+              className="w-full bg-accent text-dark-bg p-3 rounded-lg font-semibold hover:bg-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-3"
             >
               {loading ? 'Authenticating...' : 'Access Dashboard'}
             </button>
@@ -178,7 +178,7 @@ const AnalyticsDashboard = () => {
                   setError(null)
                   setToken('')
                 }}
-                className="w-full bg-gray-600 text-white p-2 rounded-lg text-sm hover:bg-gray-500 transition-colors"
+                className="w-full bg-dark-card border border-dark-border text-white p-2 rounded-lg text-sm hover:bg-dark-border transition-colors"
               >
                 Reset
               </button>
@@ -192,7 +192,7 @@ const AnalyticsDashboard = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-dark-bg flex items-center justify-center">
-        <div className="text-electric-blue">Loading analytics...</div>
+        <div className="text-accent">Loading analytics...</div>
       </div>
     )
   }
@@ -214,15 +214,15 @@ const AnalyticsDashboard = () => {
           className="mb-8 flex justify-between items-center"
         >
           <div>
-            <h1 className="text-3xl font-bold text-electric-blue mb-2">
+            <h1 className="text-3xl font-bold text-accent mb-2">
               Website Analytics Dashboard
             </h1>
-            <p className="text-gray-400">Monitor your website's performance and visitor insights • Export data as CSV</p>
+            <p className="text-text-secondary">Monitor your website's performance and visitor insights • Export data as CSV</p>
           </div>
           <div className="flex space-x-3">
             <button
               onClick={handleExportCSV}
-              className="export-btn bg-neon-green text-dark-bg px-4 py-2 rounded-lg hover:bg-neon-green/90 transition-colors flex items-center"
+              className="export-btn bg-accent text-dark-bg px-4 py-2 rounded-lg hover:bg-accent/90 transition-colors flex items-center"
             >
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -247,10 +247,10 @@ const AnalyticsDashboard = () => {
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {[
-            { label: 'Total Visits', value: analytics.totalVisits, icon: Eye, color: 'electric-blue' },
-            { label: 'Unique Visitors', value: analytics.uniqueVisitors, icon: Users, color: 'neon-green' },
-            { label: 'Page Views', value: analytics.pageViews, icon: TrendingUp, color: 'cyber-purple' },
-            { label: 'Avg. per Visitor', value: Math.round(analytics.totalVisits / analytics.uniqueVisitors || 0), icon: Globe, color: 'circuit-orange' }
+            { label: 'Total Visits', value: analytics.totalVisits, icon: Eye, color: 'accent' },
+            { label: 'Unique Visitors', value: analytics.uniqueVisitors, icon: Users, color: 'accent' },
+            { label: 'Page Views', value: analytics.pageViews, icon: TrendingUp, color: 'accent' },
+            { label: 'Avg. per Visitor', value: Math.round(analytics.totalVisits / analytics.uniqueVisitors || 0), icon: Globe, color: 'accent' }
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -265,7 +265,7 @@ const AnalyticsDashboard = () => {
                   {stat.value.toLocaleString()}
                 </span>
               </div>
-              <p className="text-gray-400 text-sm">{stat.label}</p>
+              <p className="text-text-secondary text-sm">{stat.label}</p>
             </motion.div>
           ))}
         </div>
@@ -278,12 +278,12 @@ const AnalyticsDashboard = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <h3 className="text-xl font-semibold text-neon-green mb-4">Top Pages</h3>
+            <h3 className="text-xl font-semibold text-accent mb-4">Top Pages</h3>
             <div className="space-y-3">
               {analytics.topPages.map((page) => (
                 <div key={page.page} className="flex justify-between items-center">
-                  <span className="text-gray-300 truncate mr-4">{page.page || '/'}</span>
-                  <span className="text-neon-green font-semibold">{page.count}</span>
+                  <span className="text-text-secondary truncate mr-4">{page.page || '/'}</span>
+                  <span className="text-accent font-semibold">{page.count}</span>
                 </div>
               ))}
             </div>
@@ -296,12 +296,12 @@ const AnalyticsDashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <h3 className="text-xl font-semibold text-cyber-purple mb-4">Top Referrers</h3>
+            <h3 className="text-xl font-semibold text-accent mb-4">Top Referrers</h3>
             <div className="space-y-3">
               {analytics.topReferrers.map((referrer) => (
                 <div key={referrer.referrer} className="flex justify-between items-center">
-                  <span className="text-gray-300 truncate mr-4">{referrer.referrer}</span>
-                  <span className="text-cyber-purple font-semibold">{referrer.count}</span>
+                  <span className="text-text-secondary truncate mr-4">{referrer.referrer}</span>
+                  <span className="text-accent font-semibold">{referrer.count}</span>
                 </div>
               ))}
             </div>
@@ -314,16 +314,16 @@ const AnalyticsDashboard = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <h3 className="text-xl font-semibold text-electric-blue mb-4">Top Locations</h3>
+            <h3 className="text-xl font-semibold text-accent mb-4">Top Locations</h3>
             <div className="space-y-3">
               {analytics.topLocations.map((location) => (
                 <div key={location.location} className="flex justify-between items-center">
-                  <span className="text-gray-300 truncate mr-4">
+                  <span className="text-text-secondary truncate mr-4">
                     {location.location === 'Local/Development' ? '🏠 Local' : 
                      location.location === 'Unknown Location' ? '🌍 Unknown' : 
                      `🌍 ${location.location}`}
                   </span>
-                  <span className="text-electric-blue font-semibold">{location.count}</span>
+                  <span className="text-accent font-semibold">{location.count}</span>
                 </div>
               ))}
             </div>
@@ -338,7 +338,7 @@ const AnalyticsDashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <h3 className="text-xl font-semibold text-circuit-orange mb-4">Device Types</h3>
+            <h3 className="text-xl font-semibold text-accent mb-4">Device Types</h3>
             <div className="space-y-4">
               {analytics.deviceInfo.map((device) => {
                 const percentage = (device.count / analytics.totalVisits * 100).toFixed(1)
@@ -346,16 +346,16 @@ const AnalyticsDashboard = () => {
                   <div key={device.device} className="flex items-center justify-between">
                     <div className="flex items-center">
                       {getDeviceIcon(device.device)}
-                      <span className="ml-3 text-gray-300">{device.device}</span>
+                      <span className="ml-3 text-text-secondary">{device.device}</span>
                     </div>
                     <div className="flex items-center">
                       <div className="w-24 bg-dark-bg rounded-full h-2 mr-3">
                         <div
-                          className="bg-circuit-orange h-2 rounded-full"
+                          className="bg-accent h-2 rounded-full"
                           style={{ width: `${percentage}%` }}
                         />
                       </div>
-                      <span className="text-circuit-orange font-semibold w-12 text-right">
+                      <span className="text-accent font-semibold w-12 text-right">
                         {percentage}%
                       </span>
                     </div>
@@ -372,25 +372,25 @@ const AnalyticsDashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
           >
-            <h3 className="text-xl font-semibold text-electric-blue mb-4">Visits (Last 7 Days)</h3>
+            <h3 className="text-xl font-semibold text-accent mb-4">Visits (Last 7 Days)</h3>
             <div className="space-y-3">
               {analytics.visitsByDay.map((day) => {
                 const maxCount = Math.max(...analytics.visitsByDay.map(d => d.count))
                 const percentage = maxCount > 0 ? (day.count / maxCount * 100) : 0
                 return (
                   <div key={day.date} className="flex items-center justify-between">
-                    <span className="text-gray-300 text-sm w-20">
+                    <span className="text-text-secondary text-sm w-20">
                       {new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                     </span>
                     <div className="flex-1 mx-4">
                       <div className="w-full bg-dark-bg rounded-full h-2">
                         <div
-                          className="bg-electric-blue h-2 rounded-full transition-all duration-500"
+                          className="bg-accent h-2 rounded-full transition-all duration-500"
                           style={{ width: `${percentage}%` }}
                         />
                       </div>
                     </div>
-                    <span className="text-electric-blue font-semibold w-8 text-right">
+                    <span className="text-accent font-semibold w-8 text-right">
                       {day.count}
                     </span>
                   </div>
@@ -412,31 +412,31 @@ const AnalyticsDashboard = () => {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-dark-border">
-                  <th className="text-left p-2 text-gray-400">Time</th>
-                  <th className="text-left p-2 text-gray-400">Page</th>
-                  <th className="text-left p-2 text-gray-400">Referrer</th>
-                  <th className="text-left p-2 text-gray-400">Location</th>
-                  <th className="text-left p-2 text-gray-400">Device</th>
+                  <th className="text-left p-2 text-text-secondary">Time</th>
+                  <th className="text-left p-2 text-text-secondary">Page</th>
+                  <th className="text-left p-2 text-text-secondary">Referrer</th>
+                  <th className="text-left p-2 text-text-secondary">Location</th>
+                  <th className="text-left p-2 text-text-secondary">Device</th>
                 </tr>
               </thead>
               <tbody>
                 {analytics.recentVisits.slice(0, 10).map((visit, index) => (
                   <tr key={index} className="border-b border-dark-border/50">
-                    <td className="p-2 text-gray-300">
+                    <td className="p-2 text-text-secondary">
                       {new Date(visit.timestamp).toLocaleString()}
                     </td>
-                    <td className="p-2 text-gray-300">{visit.pathname || '/'}</td>
-                    <td className="p-2 text-gray-300">
+                    <td className="p-2 text-text-secondary">{visit.pathname || '/'}</td>
+                    <td className="p-2 text-text-secondary">
                       {visit.referrer === 'direct' ? 'Direct' : new URL(visit.referrer || 'unknown://unknown').hostname}
                     </td>
-                    <td className="p-2 text-gray-300">
+                    <td className="p-2 text-text-secondary">
                       {visit.country !== 'Unknown Location' && visit.country !== 'Local/Development' 
                         ? visit.country 
                         : visit.country === 'Local/Development'
                         ? 'Local'
                         : visit.timezone || 'Unknown'}
                     </td>
-                    <td className="p-2 text-gray-300">
+                    <td className="p-2 text-text-secondary">
                       {visit.userAgent.includes('Mobile') ? 'Mobile' : 
                        visit.userAgent.includes('Tablet') ? 'Tablet' : 'Desktop'}
                     </td>
