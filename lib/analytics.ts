@@ -65,16 +65,16 @@ class Analytics {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-      }).catch(error => {
+      }).catch(_error => {
         console.log('Analytics endpoint not available, storing locally only')
       })
 
-    } catch (error) {
-      console.log('Analytics tracking error:', error)
+    } catch (_error) {
+      console.log('Analytics tracking error:', _error)
     }
   }
 
-  public trackEvent(eventName: string, eventData?: Record<string, any>) {
+  public trackEvent(eventName: string, eventData?: Record<string, unknown>) {
     try {
       const data = {
         ...this.getAnalyticsData(),
@@ -99,7 +99,7 @@ class Analytics {
     }
   }
 
-  private storeLocally(data: any) {
+  private storeLocally(data: Record<string, unknown>) {
     try {
       const existingData = localStorage.getItem('website_analytics') || '[]'
       const analytics = JSON.parse(existingData)
@@ -108,7 +108,7 @@ class Analytics {
       // Keep only last 100 entries to prevent storage bloat
       const recentAnalytics = analytics.slice(-100)
       localStorage.setItem('website_analytics', JSON.stringify(recentAnalytics))
-    } catch (error) {
+    } catch {
       // Storage not available or quota exceeded
     }
   }
@@ -138,7 +138,7 @@ export const useAnalytics = () => {
   }, [])
 
   return {
-    trackEvent: (eventName: string, eventData?: Record<string, any>) => {
+    trackEvent: (eventName: string, eventData?: Record<string, unknown>) => {
       Analytics.getInstance().trackEvent(eventName, eventData)
     },
     getAnalytics: () => Analytics.getInstance().getStoredAnalytics(),

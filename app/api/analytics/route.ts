@@ -13,7 +13,7 @@ interface AnalyticsEntry {
   sessionId: string
   event: string
   pageName?: string
-  eventData?: Record<string, any>
+  eventData?: Record<string, unknown>
   ip?: string
   country?: string
 }
@@ -56,7 +56,7 @@ const getLocationFromIP = async (ip: string): Promise<string> => {
         return location || 'Unknown Location'
       }
     }
-  } catch (error) {
+  } catch {
     console.log('Geolocation API failed, using fallback')
   }
 

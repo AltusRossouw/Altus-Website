@@ -1,8 +1,17 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Eye, Users, Monitor, Smartphone, Tablet, Globe, Calendar, TrendingUp } from 'lucide-react'
+import { Eye, Users, Monitor, Smartphone, Tablet, Globe, TrendingUp } from 'lucide-react'
+
+interface RecentVisit {
+  timestamp: string
+  pathname: string
+  referrer: string
+  country: string
+  timezone: string
+  userAgent: string
+}
 
 interface AnalyticsSummary {
   totalVisits: number
@@ -13,7 +22,7 @@ interface AnalyticsSummary {
   topLocations: { location: string; count: number }[]
   deviceInfo: { device: string; count: number }[]
   visitsByDay: { date: string; count: number }[]
-  recentVisits: any[]
+  recentVisits: RecentVisit[]
 }
 
 const AnalyticsDashboard = () => {
@@ -96,7 +105,6 @@ const AnalyticsDashboard = () => {
         document.body.removeChild(a)
         
         // Show success feedback
-        const originalText = 'Export CSV'
         const button = document.querySelector('.export-btn')
         if (button) {
           button.textContent = '✓ Downloaded'
@@ -109,7 +117,7 @@ const AnalyticsDashboard = () => {
       } else {
         setError('Failed to export CSV data')
       }
-    } catch (err) {
+    } catch {
       setError('Error downloading CSV file')
     }
   }
@@ -272,7 +280,7 @@ const AnalyticsDashboard = () => {
           >
             <h3 className="text-xl font-semibold text-neon-green mb-4">Top Pages</h3>
             <div className="space-y-3">
-              {analytics.topPages.map((page, index) => (
+              {analytics.topPages.map((page) => (
                 <div key={page.page} className="flex justify-between items-center">
                   <span className="text-gray-300 truncate mr-4">{page.page || '/'}</span>
                   <span className="text-neon-green font-semibold">{page.count}</span>
@@ -290,7 +298,7 @@ const AnalyticsDashboard = () => {
           >
             <h3 className="text-xl font-semibold text-cyber-purple mb-4">Top Referrers</h3>
             <div className="space-y-3">
-              {analytics.topReferrers.map((referrer, index) => (
+              {analytics.topReferrers.map((referrer) => (
                 <div key={referrer.referrer} className="flex justify-between items-center">
                   <span className="text-gray-300 truncate mr-4">{referrer.referrer}</span>
                   <span className="text-cyber-purple font-semibold">{referrer.count}</span>
@@ -308,7 +316,7 @@ const AnalyticsDashboard = () => {
           >
             <h3 className="text-xl font-semibold text-electric-blue mb-4">Top Locations</h3>
             <div className="space-y-3">
-              {analytics.topLocations.map((location, index) => (
+              {analytics.topLocations.map((location) => (
                 <div key={location.location} className="flex justify-between items-center">
                   <span className="text-gray-300 truncate mr-4">
                     {location.location === 'Local/Development' ? '🏠 Local' : 
@@ -332,7 +340,7 @@ const AnalyticsDashboard = () => {
           >
             <h3 className="text-xl font-semibold text-circuit-orange mb-4">Device Types</h3>
             <div className="space-y-4">
-              {analytics.deviceInfo.map((device, index) => {
+              {analytics.deviceInfo.map((device) => {
                 const percentage = (device.count / analytics.totalVisits * 100).toFixed(1)
                 return (
                   <div key={device.device} className="flex items-center justify-between">
@@ -366,7 +374,7 @@ const AnalyticsDashboard = () => {
           >
             <h3 className="text-xl font-semibold text-electric-blue mb-4">Visits (Last 7 Days)</h3>
             <div className="space-y-3">
-              {analytics.visitsByDay.map((day, index) => {
+              {analytics.visitsByDay.map((day) => {
                 const maxCount = Math.max(...analytics.visitsByDay.map(d => d.count))
                 const percentage = maxCount > 0 ? (day.count / maxCount * 100) : 0
                 return (

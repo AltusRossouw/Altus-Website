@@ -8,44 +8,31 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'electric-blue': '#00D4FF',
-        'neon-green': '#39FF14',
-        'nature-green': '#228B22',
-        'earth-gold': '#DAA520',
-        'mountain-grey': '#4A5568',
-        'cyber-purple': '#8B5CF6',
-        'circuit-orange': '#FF6B35',
-        'dark-bg': '#050505',
-        'dark-card': '#121212',
-        'dark-border': '#2A2A2B',
+        'accent': '#00D4FF',
+        'accent-muted': '#00D4FF20',
+        'dark-bg': '#0A0A0B',
+        'dark-card': '#141415',
+        'dark-border': '#27272A',
+        'text-primary': '#FAFAFA',
+        'text-secondary': '#71717A',
       },
       animation: {
-        'pulse-glow': 'pulse-glow 2s ease-in-out infinite alternate',
-        'circuit-flow': 'circuit-flow 3s linear infinite',
-        'float': 'float 6s ease-in-out infinite',
+        'fade-in': 'fade-in 0.6s ease-out forwards',
+        'slide-up': 'slide-up 0.6s ease-out forwards',
       },
       keyframes: {
-        'pulse-glow': {
-          '0%': {
-            boxShadow: '0 0 5px currentColor',
-          },
-          '100%': {
-            boxShadow: '0 0 20px currentColor, 0 0 30px currentColor',
-          },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
-        'circuit-flow': {
-          '0%': { transform: 'translateX(-100%)' },
-          '100%': { transform: 'translateX(100%)' },
-        },
-        'float': {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
+        'slide-up': {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
       fontFamily: {
-        'sans': ['Inter', 'sans-serif'],
-        'display': ['Space Grotesk', 'sans-serif'],
-        'mono': ['JetBrains Mono', 'monospace'],
+        'sans': ['Geist', 'Inter', 'system-ui', 'sans-serif'],
+        'mono': ['Geist Mono', 'JetBrains Mono', 'monospace'],
       },
     },
   },

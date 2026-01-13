@@ -1,13 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Geist Font - Vercel's official font */
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/geist@1.2.0/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/geist@1.2.0/dist/fonts/geist-sans/Geist-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/geist@1.2.0/dist/fonts/geist-sans/Geist-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/geist@1.2.0/dist/fonts/geist-sans/Geist-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('https://cdn.jsdelivr.net/npm/geist@1.2.0/dist/fonts/geist-mono/GeistMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('https://cdn.jsdelivr.net/npm/geist@1.2.0/dist/fonts/geist-mono/GeistMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 5, 5, 5;
-  --background-end-rgb: 18, 18, 18;
+  --background: #0A0A0B;
+  --foreground: #FAFAFA;
+  --accent: #00D4FF;
 }
 
 * {
@@ -16,21 +65,23 @@
   margin: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  position: relative;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-  font-family: 'Inter', sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -38,64 +89,63 @@ a {
   text-decoration: none;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - minimal */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #121212;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00D4FF;
-  border-radius: 4px;
+  background: #27272A;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #39FF14;
+  background: #3f3f46;
 }
 
-/* Circuit board background pattern */
-.circuit-bg {
-  background-image: 
-    radial-gradient(circle at 25px 25px, rgba(0, 212, 255, 0.1) 2px, transparent 0),
-    radial-gradient(circle at 75px 75px, rgba(57, 255, 20, 0.1) 2px, transparent 0);
-  background-size: 100px 100px;
+/* Utility classes */
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, #60A5FA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Glowing text effect */
-.glow-text {
-  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor;
+/* Card component */
+.card {
+  @apply bg-dark-card/50 backdrop-blur-sm border border-dark-border rounded-xl transition-all duration-300;
 }
 
-.glow-text-nature {
-  text-shadow: 0 0 10px rgba(34, 139, 34, 0.5), 0 0 20px rgba(34, 139, 34, 0.3);
+.card:hover {
+  @apply border-accent/30 bg-dark-card/80;
 }
 
-/* Neon border effect */
-.neon-border {
-  box-shadow: 
-    0 0 5px currentColor,
-    inset 0 0 5px currentColor,
-    0 0 15px currentColor,
-    inset 0 0 15px currentColor;
+/* Skill tag */
+.skill-tag {
+  @apply px-3 py-1.5 bg-accent/10 text-accent border border-accent/20 rounded-full text-sm font-mono;
 }
 
-/* Hide scrollbar for mobile navigation */
-.scrollbar-hide {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
-}
-.scrollbar-hide::-webkit-scrollbar { 
-  display: none;  /* Safari and Chrome */
+/* Button styles */
+.btn-primary {
+  @apply px-6 py-3 bg-accent text-dark-bg font-medium rounded-lg transition-all duration-200;
+  @apply hover:bg-accent/90 hover:scale-[1.02] active:scale-[0.98];
 }
 
-/* Glassmorphism Card */
-.glass-card {
-  @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl transition-all duration-300;
+.btn-secondary {
+  @apply px-6 py-3 bg-transparent text-text-primary border border-dark-border font-medium rounded-lg transition-all duration-200;
+  @apply hover:border-accent/50 hover:text-accent;
 }
 
-.glass-card:hover {
-  @apply bg-white/10 border-electric-blue/50;
+/* Section spacing */
+.section {
+  @apply py-24 md:py-32;
+}
+
+/* Container */
+.container-custom {
+  @apply max-w-5xl mx-auto px-6;
 }
