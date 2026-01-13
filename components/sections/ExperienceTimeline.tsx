@@ -6,68 +6,52 @@ import { Calendar, Briefcase, MapPin } from 'lucide-react'
 export default function ExperienceTimeline() {
   const experiences = [
     {
-      year: '2025 - Present',
+      year: 'Sep 2024 - Present',
+      title: 'Mountain Bike Tour Guide',
+      company: 'Beyond Bike',
+      location: 'Paarl, South Africa',
+      type: 'adventure',
+      description: 'Passionate MTB guide providing safe, fun, and memorable trail experiences. Skilled in route planning, trail knowledge, and client engagement. Leading groups, coaching skills, and sharing local trail insights.'
+    },
+    {
+      year: 'May 2025 - Dec 2025',
       title: 'Software Engineer Intern',
       company: 'Azoteq',
       location: 'Paarl, South Africa',
       type: 'tech',
-      description: 'Firmware development for custom ICs, IoT full-stack development, and MQTT integration.'
+      description: 'Embedded systems and IoT projects, developing firmware and software solutions for sensor integration. Experience with microcontrollers, MQTT protocols, and web interfaces for real-time sensor monitoring platforms.'
     },
     {
-      year: '2024 - Present',
-      title: 'Freelance Bicycle Mechanic',
-      company: 'Self-Employed',
+      year: 'Jan 2023 - Aug 2024',
+      title: 'Mountain Bike Development Mechanic',
+      company: 'Scott Sports SA',
+      location: 'Givisiez, Fribourg, Switzerland',
+      type: 'adventure',
+      description: 'Full-time development mechanic working on high-end mountain bike prototyping, assembly, and maintenance at Scott Sports headquarters.'
+    },
+    {
+      year: 'Dec 2022',
+      title: 'Bicycle Mechanic',
+      company: 'Scott Sports Germany',
+      location: 'Germany',
+      type: 'adventure',
+      description: 'Freelance bicycle mechanic providing technical support at international dealer events.'
+    },
+    {
+      year: 'Oct 2022 - Dec 2022',
+      title: 'Bicycle Mechanic',
+      company: 'Scott Sports Africa',
       location: 'South Africa',
       type: 'adventure',
-      description: 'Professional mechanic for major events including Cape Epic & Wines2Whales. High-performance assembly and optimization.'
+      description: 'Part-time bicycle mechanic supporting Scott Sports Africa operations and events.'
     },
     {
-      year: '2023 - Present',
-      title: 'Bicycle Tour Guide',
-      company: 'Freelance',
-      location: 'Switzerland & South Africa',
-      type: 'adventure',
-      description: 'Guiding international clients on mountain & gravel bike tours. Managed logistics and safety.'
-    },
-    {
-      year: '2023 - 2024',
-      title: 'Professional Development Mechanic',
-      company: 'Scott Sports',
-      location: 'Fribourg, Switzerland',
-      type: 'adventure',
-      description: 'Prototyping and maintenance of high-end bicycles. Technical support at international races and product launches.'
-    },
-    {
-      year: '2023 (Jan - Jun)',
-      title: 'Quality Management Team',
-      company: 'Scott Sports',
-      location: 'Fribourg, Switzerland',
-      type: 'tech',
-      description: 'Contributed to workshop design and database integration projects.'
-    },
-    {
-      year: '2022 - 2023',
-      title: 'Mechanic & Guide',
-      company: 'Scott Sports',
-      location: 'Munich, Germany / Paarl, South Africa',
-      type: 'adventure',
-      description: 'Delivered technical support at international dealer events. Guided large groups and managed guest experiences.'
-    },
-    {
-      year: '2022',
-      title: 'Computer Network Manager',
-      company: 'Clift College',
-      location: 'Paarl, South Africa',
-      type: 'tech',
-      description: 'Designed and maintained wired/wireless networks for 150+ clients. Server configuration and IT support.'
-    },
-    {
-      year: '2022',
-      title: 'Mountain Bike Coach',
+      year: 'Jan 2022 - Nov 2022',
+      title: 'Head Coach',
       company: 'Mrace Coaching Systems',
-      location: 'Paarl, South Africa',
+      location: 'South Africa',
       type: 'adventure',
-      description: 'Coached riding skills, fitness, and nutrition strategies for cyclists of all levels.'
+      description: 'Head coach teaching riding skills, fitness strategies, and nutrition to cyclists of all levels.'
     }
   ]
 
