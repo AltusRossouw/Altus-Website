@@ -19,7 +19,7 @@ export default function Hero() {
   return (
     <section ref={ref} className="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden">
       {/* Dynamic Background Elements */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Tech Orb */}
         <motion.div 
           className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-electric-blue/5 blur-[100px] will-change-transform"

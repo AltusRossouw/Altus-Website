@@ -673,5 +673,95 @@
     "pageName": "Altus Rossouw - Embedded Systems Developer & IoT Specialist",
     "ip": "::1",
     "country": "Local/Development"
+  },
+  {
+    "timestamp": "2026-01-13T11:56:12.593Z",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.2 Safari/605.1.15",
+    "referrer": "direct",
+    "pathname": "/",
+    "screenResolution": "2056x1329",
+    "language": "en-US",
+    "timezone": "Europe/Zurich",
+    "sessionId": "mkcja0x38ss8lc2se4i",
+    "event": "desktop_menu_click",
+    "eventData": {
+      "menu_item": "engineering",
+      "location": "desktop_navigation"
+    },
+    "ip": "::1",
+    "country": "Local/Development"
+  },
+  {
+    "timestamp": "2026-01-13T11:56:12.857Z",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+    "referrer": "direct",
+    "pathname": "/",
+    "screenResolution": "800x600",
+    "language": "en-US",
+    "timezone": "Europe/Zurich",
+    "sessionId": "mkcjd22hwb7wrdl2ea9",
+    "event": "page_view",
+    "pageName": "Altus Rossouw - Embedded Systems Developer & IoT Specialist",
+    "ip": "::1",
+    "country": "Local/Development"
+  },
+  {
+    "timestamp": "2026-01-13T11:56:12.864Z",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+    "referrer": "direct",
+    "pathname": "/",
+    "screenResolution": "800x600",
+    "language": "en-US",
+    "timezone": "Europe/Zurich",
+    "sessionId": "mkcjd22hwb7wrdl2ea9",
+    "event": "page_view",
+    "pageName": "Altus Rossouw - Embedded Systems Developer & IoT Specialist",
+    "ip": "::1",
+    "country": "Local/Development"
+  },
+  {
+    "timestamp": "2026-01-13T11:56:12.864Z",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+    "referrer": "direct",
+    "pathname": "/",
+    "screenResolution": "800x600",
+    "language": "en-US",
+    "timezone": "Europe/Zurich",
+    "sessionId": "mkcjd22hwb7wrdl2ea9",
+    "event": "page_view",
+    "pageName": "Altus Rossouw - Embedded Systems Developer & IoT Specialist",
+    "ip": "::1",
+    "country": "Local/Development"
+  },
+  {
+    "timestamp": "2026-01-13T11:56:12.865Z",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+    "referrer": "direct",
+    "pathname": "/",
+    "screenResolution": "800x600",
+    "language": "en-US",
+    "timezone": "Europe/Zurich",
+    "sessionId": "mkcjd22hwb7wrdl2ea9",
+    "event": "page_view",
+    "pageName": "Altus Rossouw - Embedded Systems Developer & IoT Specialist",
+    "ip": "::1",
+    "country": "Local/Development"
+  },
+  {
+    "timestamp": "2026-01-13T11:56:13.465Z",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.2 Safari/605.1.15",
+    "referrer": "direct",
+    "pathname": "/",
+    "screenResolution": "2056x1329",
+    "language": "en-US",
+    "timezone": "Europe/Zurich",
+    "sessionId": "mkcja0x38ss8lc2se4i",
+    "event": "desktop_menu_click",
+    "eventData": {
+      "menu_item": "adventure",
+      "location": "desktop_navigation"
+    },
+    "ip": "::1",
+    "country": "Local/Development"
   }
 ]
