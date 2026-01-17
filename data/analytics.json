@@ -1837,5 +1837,33 @@
     },
     "ip": "::1",
     "country": "Local/Development"
+  },
+  {
+    "timestamp": "2026-01-17T10:24:27.389Z",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+    "referrer": "direct",
+    "pathname": "/",
+    "screenResolution": "1280x720",
+    "language": "en-US",
+    "timezone": "UTC",
+    "sessionId": "mki5ugilwpl5s0mn4n9",
+    "event": "page_view",
+    "pageName": "Altus Rossouw - Embedded Systems Developer & IoT Specialist",
+    "ip": "::1",
+    "country": "Local/Development"
+  },
+  {
+    "timestamp": "2026-01-17T10:24:27.165Z",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+    "referrer": "direct",
+    "pathname": "/",
+    "screenResolution": "1280x720",
+    "language": "en-US",
+    "timezone": "UTC",
+    "sessionId": "mki5ugilwpl5s0mn4n9",
+    "event": "page_view",
+    "pageName": "Altus Rossouw - Embedded Systems Developer & IoT Specialist",
+    "ip": "::1",
+    "country": "Local/Development"
   }
 ]
